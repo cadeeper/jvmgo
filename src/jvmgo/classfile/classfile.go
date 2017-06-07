@@ -3,7 +3,7 @@ package classfile
 import "fmt"
 
 type ClassFile struct {
-	magic        uint32
+//	magic        uint32
 	minorVersion uint16
 	majorVersion uint16
 	constantPool ConstantPool
@@ -41,7 +41,7 @@ func (self *ClassFile) read(reader *ClassReader) {
 	self.thisClass = reader.readUint16()
 	self.superClass = reader.readUint16()
 	self.interfaces = reader.readUint16s()
-	self.interfaces = readMembers(reader, self.constantPool)
+	self.fields = readMembers(reader, self.constantPool)
 	self.methods = readMembers(reader, self.constantPool)
 	self.attributes = readAttributes(reader, self.constantPool)
 }

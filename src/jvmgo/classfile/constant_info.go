@@ -1,5 +1,8 @@
 package classfile
 
+/**
+	常量池tag
+ */
 const (
 	CONSTANT_Class              = 7
 	CONSTANT_Fieldref           = 9

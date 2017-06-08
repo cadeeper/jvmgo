@@ -1,5 +1,15 @@
 package classfile
 
+
+/**
+	attribute_info {
+		u2 attribute_name_index;		指向常量池中的一个utf8类型，保存属性的名称
+		u4 attribute_length;
+		u1 info[attribute_length];
+	}
+	reference:
+		http://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html#jvms-4.7
+ */
 type AttributeInfo interface {
 	readInfo(reader *ClassReader)
 }

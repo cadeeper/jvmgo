@@ -2,13 +2,16 @@ package classfile
 
 type ConstantPool [] ConstantInfo
 
+/**
+	加载常量池
+ */
 func readConstantPool(reader *ClassReader) ConstantPool{
 	cpCount := int(reader.readUint16())
 	cp := make([] ConstantInfo, cpCount)
 	for i :=1; i < cpCount; i++ {
 		cp[i] = readConstantInfo(reader, cp)
 		switch cp[i].(type) {
-		case *ConstantLongInfo, *ConstantDoubleInfo:
+		case *ConstantLongInfo, *ConstantDoubleInfo:		//long 和double占用两个常量位
 			i++
 		}
 	}

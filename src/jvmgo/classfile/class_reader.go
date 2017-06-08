@@ -2,6 +2,7 @@ package classfile
 
 import "encoding/binary"
 
+
 type ClassReader struct {
 	data[] byte
 }

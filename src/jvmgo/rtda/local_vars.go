@@ -11,30 +11,42 @@ func newLocalVars(maxLocals uint) LocalVars {
 	return nil
 }
 
-func (self LocalVars) setInt(index uint, val int32) {
+func (self LocalVars) SetInt(index uint, val int32) {
 	self[index].num = val
 }
 
-func (self LocalVars) getInt(index uint) int32 {
+func (self LocalVars) GetInt(index uint) int32 {
 	return self[index].num
 }
 
-func (self LocalVars) setFloat(index uint, val float32) {
+func (self LocalVars) SetFloat(index uint, val float32) {
 	bits := math.Float32bits(val)
 	self[index].num = int32(bits)
 }
 
-func (self LocalVars) getFloat(index uint) float32 {
+func (self LocalVars) GetFloat(index uint) float32 {
 	bits := uint32(self[index].num)
 	return math.Float32frombits(bits)
 }
 
-func (self LocalVars) setLong(index uint, val int64) {
+func (self LocalVars) SetDouble(index uint, val float64) {
+	bits := math.Float64bits(val)
+	self[index].num = int32(bits)
+	self[index + 1].num = int32(bits >> 32)
+}
+
+func (self LocalVars) GetDouble(index uint) float64 {
+	low := uint32(self[index].num)
+	high := uint32(self[index + 1]. num)
+	return math.Float64frombits(uint64(high) << 32 | uint64(low))
+}
+
+func (self LocalVars) SetLong(index uint, val int64) {
 	self[index].num = int32(val)
 	self[index + 1]. num = int32(val >> 32)
 }
 
-func (self LocalVars) getLong(index uint) int64 {
+func (self LocalVars) GetLong(index uint) int64 {
 	low := uint32(self[index]. num)
 	high := uint32(self[index + 1]. num)
 	return int64(high) << 32 | int64(low)

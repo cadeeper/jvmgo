@@ -10,6 +10,12 @@ func (self *BytecodeReader) Reset(code [] byte, pc int) {
 	self.pc = pc
 }
 
+func (self *BytecodeReader) SkipPadding() {
+	for self.pc % 4 != 0 {
+		self.ReadUint8()
+	}
+}
+
 func (self *BytecodeReader) ReadUint8() uint8 {
 	i := self.code[self.pc]
 	self.pc++
@@ -40,4 +46,13 @@ func (self *BytecodeReader) ReadUint32() uint32 {
 
 func (self *BytecodeReader) ReadInt32() int32 {
 	return int32(self.ReadUint32())
+}
+
+
+func (self *BytecodeReader) ReadInt32s(n int32) [] int32 {
+	ints := make([] int32, n)
+	for i := range ints {
+		ints[i] = self.ReadInt32()
+	}
+	return ints
 }

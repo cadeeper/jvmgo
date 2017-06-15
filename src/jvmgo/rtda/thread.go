@@ -11,6 +11,10 @@ func NewThread() *Thread {
 	}
 }
 
+func (self *Thread) NewFrame(maxLocals, maxStack uint) *Frame {
+	return newFrame(self,maxLocals,maxStack)
+}
+
 func (self *Thread) PC() int {
 	return self.pc
 }
